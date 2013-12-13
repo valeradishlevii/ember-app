@@ -1,0 +1,38 @@
+{{! Info about instrument pane }}
+<div class='spacer120'></div>
+<div class="navbar navbar-fixed-top navbar-secondary mini-profile">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="span3 profile-id">
+                        <h1>
+                            <span class="real-name">{{model.name}}</span>
+                            <span class="user-name">{{model.symbol}}</span>
+                        </h1>
+                        <div class="profile-cta">
+                            <a {{action "follow" model}} {{bindAttr class=":follow_user_button :btn model.is_following:btn-danger:btn-success"}}>{{#if model.is_following}}Unfollow{{else}}Follow{{/if}}</a>
+                            {{#if model.username}}
+                                <a data-target="#modal-private-message" data-toggle="modal" title="send private message" class="send-private-message" href="#"><i class="icon-envelope"></i></a>
+                            {{/if}}
+                        </div>
+
+                    </div>
+
+                    <div class="profile-info span8 offset1">
+                        <ul class="stats">
+                            <li><strong class="friendship__profile_followers_count">{{model.followers}}</strong>
+                                followers
+                            </li>
+                        </ul>
+                    </div>
+                    {{!<!-- .profile-details -->}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clear"></div>

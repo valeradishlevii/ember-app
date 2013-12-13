@@ -1,0 +1,53 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="txtc"><i class="icon-user"></i> <span class="hidden-tablet hidden-phone">User</span></th>
+      <th class="txtc"><i class="icon-followers"></i> <span class="hidden-tablet hidden-phone">Flwrs</span></th>
+      <th class="txtc"><i class="icon-following"></i> <span class="hidden-tablet hidden-phone">Flwng</span></th>
+      {{!--
+      <th class="txtc"><i class="icon-copy"></i> <span class="hidden-tablet hidden-phone">Copiers</span></th>
+      <th class="txtc"><i class="icon-trade"></i> <span class="hidden-tablet hidden-phone">Trades</span></th>
+      <th class="txtc"><i class="icon-graph"></i> <span class="hidden-tablet hidden-phone">Performance</span></th> --}}
+      <th class="action"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each item in controller}}
+        {{#unless item.hide}}
+        <tr>
+          <td>
+            {{#linkTo users.detail item title="User feed"}}
+            <img width="50" height="50" class="avatar" alt="" src="/static/activity/images/none-avatar-50x50.gif">
+            {{/linkTo}}
+          </td>
+          <td>
+            {{#linkTo users.detail item title="User feed"}}
+                {{item.username}}
+            {{/linkTo}}
+            <small class="muted"><i class="icon icon-map-marker"></i> London, UK</small>
+          </td>
+          <td class="txtc">0</td>
+          <td class="txtc">0</td>
+          {{!<td class="txtc">11</td>
+          <td data-bind="text: trade_count" class="txtc">3</td>
+          <td>
+            <span class="performance">
+              <strong class="perf-value">8.4%</strong>
+              <small class="perf-period">90 day</small>
+            </span>
+            <span class="performance">
+              <strong class="perf-value">29.6%</strong>
+              <small class="perf-period">365 day</small>
+            </span>
+          </td>}}
+          <td class="action">
+            <div class="btn-group">
+                <a {{action "follow" item}} {{bindAttr class=":btn-small :btn item.is_following:btn-danger:btn-success"}}>{{#if item.is_following}}Unfollow{{else}}Follow{{/if}}</a>
+            </div>
+          </td>
+        </tr>
+        {{/unless}}
+    {{/each}}
+  </tbody>
+</table>

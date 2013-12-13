@@ -1,0 +1,53 @@
+{{! Info about instrument pane }}
+<div class='spacer120'></div>
+<div class="navbar navbar-fixed-top navbar-secondary mini-profile">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="span5 profile-id">
+                        <h1>
+                            <img class="avatar" alt="" {{bindAttr src = "model.avatar"}}>
+                            <span class="real-name">{{model.first_name}} {{model.last_name}}</span>
+                            <span class="user-name">{{model.username}}</span>
+                        </h1>
+                        {{#unless model.is_iam}}
+                        <div class="profile-cta">
+                            <a {{action "follow" model}} {{bindAttr class=":follow_user_button :btn model.is_following:btn-danger:btn-success"}}>{{#if model.is_following}}Unfollow{{else}}Follow{{/if}}</a>
+                            {{#if model.username}}
+                                <a data-target="#modal-private-message" data-toggle="modal" title="send private message" class="send-private-message" href="#"><i class="icon-envelope"></i></a>
+                            {{/if}}
+                        </div>
+                        {{/unless}}
+
+                    </div>
+
+                    <div class="profile-info span5 offset1">
+                        <ul class="stats">
+                            <li><strong class="friendship__profile_followers_count">{{model.followers}}</strong>
+                                followers
+                            </li>
+                            <li><strong class="friendship__profile_following_count">{{model.following}}</strong>
+                                following
+                            </li>
+                        </ul>
+
+                        <div class="profile-about">
+                            <p>{{{model.about}}}</p>
+                        </div>
+
+                        <div class="profile-meta">
+                            Joined {{date model.date_joined}}
+                        </div>
+
+                    </div>
+                    {{!<!-- .profile-details -->}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>

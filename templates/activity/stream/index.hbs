@@ -1,0 +1,15 @@
+<p class="lead pull-left">Latest Updates</p>
+
+{{view Bootstrap.Pills classNames="pull-right"
+contentBinding="controller.filters"
+selectionBinding="controller.selectedFilter"}}
+
+<div class="clearfix"></div>
+
+<ul class="stream-list semantic-list">
+    {{#each item in filteredContent}}
+        {{partial "stream/user_stream_post"}}
+    {{else}}
+        <small>Loading feed...</small>
+    {{/each}}
+</ul>

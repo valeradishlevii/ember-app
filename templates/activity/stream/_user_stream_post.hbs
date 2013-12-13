@@ -1,0 +1,119 @@
+{{! Your activity feed template}}
+<li>
+    <article>
+        <a href="#" {{action "hidePost" item bubles=false}} class="close pull-right">&times;</a>
+        <div>
+            <i class="stream-update"></i>
+            <div class="opts row">
+                {{#unless item.post.is_system_post}}
+                <div class="row">
+                    <div>
+                        {{#linkTo users.detail item.post.user}}
+                            {{item.post.user.username}}
+                        {{/linkTo}}
+                    </div>
+                </div>
+                {{/unless}}
+                <div class="row">
+                    <div>{{linkToMentions item.post.content}}</div>
+                </div>
+                {{#if item.post.media_adapter}}
+                    {{#each item.post.media_adapter.content}}
+                        {{{unbound this.embed}}}
+                    {{/each}}
+                {{/if}}
+                {{#unless item.post.is_system_post}}
+                <div class="row">
+                    <div class="span2">
+                        <small class='muted'>
+                            ({{date item.post.date}})
+                        </small>
+                    </div>
+                    <div class="span2">
+                        <div>
+                            <small><a href="#" {{action "toggle_comments" item.post bubles=false}}> <i class="top-icon icon-comment"}}></i>comments({{ item.post.comments.content.length}})</a></small>
+                        </div>
+                        <div>
+                            <a href="#" {{action "toggle_comment_form" item.post bubles=false}}>
+                                <i class="top-icon icon-pencil"}}></i><small>quick reply</small>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="span1 pull-right">
+                        {{#if item.reason}}
+                            <a href="#" {{action "toggle_reason_list" item bubles=false}}>
+                                <i class="top-icon icon-question-sign"></i>
+                            </a>
+                        {{/if}}
+                    </div>
+                    <div class="span2 pull-right">
+                        <a href="#" {{action "toggle_like_list" item.post bubles=false}}>
+                            ({{item.post.likes_count}})
+                        </a>
+                        <a href="#" {{action "like" item.post bubles=false}}>
+                            <i {{bindAttr class="top-icon item.post.liked:icon-star-empty:icon-star"}}></i>
+                            <small>{{#if item.post.liked}}
+                                    Unlike
+                                {{else}}
+                                    Like
+                                {{/if}}</small>
+                        </a>
+                    </div>
+                </div>
+                {{/unless}}
+            </div>
+            {{#if item.post.show_comments}}
+                <div class="row">
+                    <div class="span7 offset1">
+                        <ul class="comment-list">
+                            {{#each item.post.comments}}
+                            <li>
+                                <small><a href="#">{{user}}</a></small><br/>
+                                    {{this.content}}
+                            </li>
+                            {{else}}
+                                <br/><small class="muted">Be first!!</small>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+            {{/if}}
+            {{#if item.post.show_comment_form}}
+                <div class="row">
+                    <br/>
+                    <div class="span5 offset1">
+                        {{view Ember.TextArea
+                            valueBinding="item.post.newComment"
+                            rows="1"
+                            classNames="comment-area"}}
+                    </div>
+                    <div class="span1">
+                        <a href="#" {{action "add_comment" item.post bubles=false}}>
+                        <button class="btn btn-large" type="button">Post</button>
+                        </a>
+                    </div>
+                </div>
+            {{/if}}
+            {{#if item.post.show_likes_list}}
+                <div class="row">
+                    <div class="span7 offset1">
+                        <small class="muted">{{item.post.likes_printable.content}}
+                            {{#if item.post.likes_printable.others}}
+                                and {{item.post.likes_printable.others}} more
+                            {{/if}}</small>
+                    </div>
+                </div>
+            {{/if}}
+            {{#if item.show_reasons}}
+                {{#if item.reason}}
+                    <div class="row">
+                        <div class="span7 offset1">
+                            <small class="muted">You see this post because:</small>{{item.reason_printable}}
+                        </div>
+                    </div>
+                {{/if}}
+            {{/if}}
+        </div>
+        <div class="clearfix"></div>
+    </article>
+</li>

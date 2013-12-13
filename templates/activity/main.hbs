@@ -1,0 +1,62 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            {{#linkTo stream classNames="brand"}}TradeCrowd{{/linkTo}}
+            <button class="btn btn-primary pull-right" {{action addPostPopUp}} title="Add new post">
+                <i class="icon icon-edit icon-white"></i>
+            </button>
+            <div id="profile-holder" class="profile-display-own hidden-phone hidden-tablet">
+                <div class="pull-right">
+                    <div class="pull-right pad-left">
+                        <a class="menu-text" href="{{unbound django_data.userena.profile_url}}">Profile</a><br/>
+                        <a class="menu-text" href="{{unbound django_data.userena.logout_url}}">Logout</a>
+                    </div>
+                    <strong class="well">
+                        {{#linkTo users.detail django_data.user}}
+                            {{django_data.user.username}}
+                        {{/linkTo}}
+                    </strong><br/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{outlet "top-tip"}}
+<div class="container">
+      <div class="row">
+        <div class="span3">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list">
+                    {{#linkTo stream tagName="li"}}
+                      <a {{bindAttr href="view.href"}}><i class="icon-tasks"></i> Your activity feed</a>
+                    {{/linkTo}}
+
+                    <li class="nav-header"><hr/></li>
+
+                    {{#linkTo users.index tagName="li"}}
+                      <a {{bindAttr href="view.href"}}><i class="icon-user"></i> Users</a>
+                    {{/linkTo}}
+                    {{#linkTo instruments.index tagName="li"}}
+                      <a {{bindAttr href="view.href"}}><i class="icon-wrench"></i> Instruments</a>
+                    {{/linkTo}}
+                    {{#linkTo instruments.favorite tagName="li"}}
+                      <a {{bindAttr href="view.href"}}><i class="icon-star"></i> Favorite instruments</a>
+                    {{/linkTo}}
+                </ul>
+            </div>
+        </div>
+        <div class="span9">
+            {{outlet}}
+        </div>
+      </div>
+</div>
+<div id="footer">
+  <div class="container">
+    <p class="muted credit">© TradeCrowd 2012</p>
+  </div>
+</div>

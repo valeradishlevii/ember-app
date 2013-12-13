@@ -1,0 +1,11 @@
+{{#each part in view.formattedContent}}
+    {{#if part.is_ready}}
+        {{#if part.is_user}}
+            {{#linkTo users.detail part.obj}}{{part.content}}{{/linkTo}}
+        {{else}}
+            {{#linkTo instruments.detail part.obj}}{{part.content}}{{/linkTo}}
+        {{/if}}
+    {{else}}
+        {{part.content}}
+    {{/if}}
+{{/each}}

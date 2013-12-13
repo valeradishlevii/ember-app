@@ -1,0 +1,96 @@
+{{! partial template for instrument or user feed }}
+<li>
+    <article>
+        {{#unless this.is_system_post}}
+            <a href="#" {{action "deletePost" this bubles=false}} class="close pull-right">&times;</a>
+        {{/unless}}
+        <div>
+            <i class="stream-update"></i>
+            <div class="opts row">
+                <div class="row">
+                    <div>{{linkToMentions this.content}}</div>
+                </div>
+                {{#if this.media_adapter}}
+                    {{#each this.media_adapter.content}}
+                        {{{unbound this.embed}}}
+                    {{/each}}
+                {{/if}}
+                {{#unless this.is_system_post}}
+                <div class="row">
+                    <div class="span2">
+                        <small class='muted'>
+                            ({{date this.date}})
+                        </small>
+                    </div>
+                    <div class="span2">
+                        <div>
+                            <small><a href="#" {{action "toggle_comments" this bubles=false}}> <i class="top-icon icon-comment"}}></i>comments({{ this.comments.content.length}})</a></small>
+                        </div>
+                        <div>
+                            <a href="#" {{action "toggle_comment_form" this bubles=false}}>
+                                <i class="top-icon icon-pencil"}}></i><small>quick reply</small>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="span2 pull-right">
+                        <a href="#" {{action "toggle_like_list" this bubles=false}}>
+                            ({{this.likes_count}})
+                        </a>
+                        <a href="#" {{action "like" this bubles=false}}>
+                            <i {{bindAttr class="top-icon this.liked:icon-star-empty:icon-star"}}></i>
+                            <small>{{#if this.liked}}
+                                    Unlike
+                                {{else}}
+                                    Like
+                                {{/if}}</small>
+                        </a>
+                    </div>
+                </div>
+                {{/unless}}
+            </div>
+            {{#if this.show_comments}}
+                <div class="row">
+                    <div class="span7 offset1">
+                        <ul class="comment-list">
+                            {{#each this.comments}}
+                            <li>
+                                <small><a href="#">{{user}}</a></small><br/>
+                                    {{this.content}}
+                            </li>
+                            {{else}}
+                                <br/><small class="muted">Be first!!</small>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+            {{/if}}
+            {{#if this.show_comment_form}}
+                <div class="row">
+                    <br/>
+                    <div class="span5 offset1">
+                        {{view Ember.TextArea
+                            valueBinding="newComment"
+                            rows="1"
+                            classNames="comment-area"}}
+                    </div>
+                    <div class="span1">
+                        <a href="#" {{action "add_comment" this bubles=false}}>
+                        <button class="btn btn-large" type="button">Post</button>
+                        </a>
+                    </div>
+                </div>
+            {{/if}}
+            {{#if this.show_likes_list}}
+                <div class="row">
+                    <div class="span7 offset1">
+                        <small class="muted">{{this.likes_printable.content}}
+                            {{#if this.likes_printable.others}}
+                                and {{this.likes_printable.others}} more
+                            {{/if}}</small>
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+        <div class="clearfix"></div>
+    </article>
+</li>

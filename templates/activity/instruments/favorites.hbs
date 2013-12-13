@@ -1,0 +1,47 @@
+{{view Bootstrap.Forms.Select
+contentBinding="asset_classes"
+selectionBinding="selected_asset_class"
+label="Filter instruments"
+classNames="pull-right"}}
+
+<div class="clearfix"></div>
+
+<table class="table table-hover">
+    <tr>
+        <th>Instrument</th>
+        <th>Sell</th>
+        <th>Buy</th>
+        <th>Action</th>
+    </tr>
+
+{{#collection "Ember.SortableView"
+contentBinding="filteredContent"
+changeBinding="positionChanged"
+disabledBinding="sortDisabled"
+}}
+        <td>
+            {{#linkTo instruments.detail this.instrument title="Instrument feed"}}
+                {{instrument.name}}
+            {{/linkTo}}
+        </td>
+        <td class="price_holder">
+            <div {{bindAttr class="instrument.price.sell_dir"}}>{{instrument.price.sell}}</div>
+        </td>
+        <td class="price_holder">
+            <div {{bindAttr class="instrument.price.buy_dir"}}>{{instrument.price.buy}}</div>
+        </td>
+        <td>
+            <div class="btn-group">
+                <a class="btn btn-small" {{action "favorite" this}}>
+                    <i {{bindAttr class="instrument.is_favorite:icon-star-empty:icon-star"}}></i>
+                    {{#if instrument.is_favorite}}Unstar{{else}}Star{{/if}}
+                </a>
+                <a {{action "follow" instrument}} {{bindAttr class=":btn :btn-small instrument.is_following:btn-danger:btn-success"}}>
+                    {{#if instrument.is_following}}Unfollow{{else}}Follow{{/if}}
+                </a>
+            </div>
+        </td>
+{{else}}
+    <small>There is no instruments...</small>
+{{/collection}}
+</table>

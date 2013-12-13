@@ -1,0 +1,14 @@
+{{! Posts list }}
+<ul class="stream-list semantic-list">
+    {{#each controller.posts}}
+        {{partial "stream/stream_post"}}
+    {{else}}
+        <small>
+            {{#if controller.posts}}
+                Loading feed...
+            {{else}}
+                There is no posts.
+            {{/if}}
+        </small>
+    {{/each}}
+</ul>
